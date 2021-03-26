@@ -11,7 +11,7 @@ namespace HelloCore.Models
 
         public string Artikel { get; set; }
 
-        public Decimal Prijs { get; set; }
+        public Decimal? Prijs { get; set; }
 
         public int KlantID { get; set; }
 

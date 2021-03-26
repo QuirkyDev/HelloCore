@@ -19,7 +19,10 @@ namespace HelloCore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Klant>().ToTable("Klant");
-            modelBuilder.Entity<Bestelling>().ToTable("Bestelling").Property(p => p.Prijs).HasColumnType("decimal(18,2)");
+            modelBuilder.Entity<Klant>().Property(p => p.Naam).IsRequired();
+
+            modelBuilder.Entity<Bestelling>().ToTable("Bestelling");
+            modelBuilder.Entity<Bestelling>().Property(p => p.Prijs).HasColumnType("decimal(18,2)");
         }
     }
 }
