@@ -20,6 +20,7 @@ namespace HelloCore.Data
         {
             modelBuilder.Entity<Klant>().ToTable("Klant");
             modelBuilder.Entity<Klant>().Property(p => p.Naam).IsRequired();
+            modelBuilder.Entity<Klant>().Ignore(p => p.VolledigeNaam);
 
             modelBuilder.Entity<Bestelling>().ToTable("Bestelling");
             modelBuilder.Entity<Bestelling>().Property(p => p.Prijs).HasColumnType("decimal(18,2)");

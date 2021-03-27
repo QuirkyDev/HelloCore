@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HelloCore.Models.Bestelling>
+﻿@model HelloCore.ViewModels.ListBestellingViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,17 +9,29 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Bestelling" asp-action="Search" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Zoek op artikel:
+            <input asp-for="ArtikelSearch" />
+            <input type="submit" value="Zoeken" class="btn btn-default" /> |
+            <a asp-controller="Bestelling" asp-action="Index">Terug  naar volledige lijst</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Artikel)
+                @Html.DisplayNameFor(model => model.Bestellingen[0].Artikel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prijs)
+                @Html.DisplayNameFor(model => model.Bestellingen[0].Prijs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Klant)
+                @Html.DisplayNameFor(model => model.Bestellingen[0].Klant)
             </th>
             <th>
 
@@ -27,22 +39,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (Bestelling bestelling in Model.Bestellingen)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Artikel)
+                    @Html.DisplayFor(modelItem => bestelling.Artikel)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Prijs)
+                    @Html.DisplayFor(modelItem => bestelling.Prijs)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Klant.Naam)
+                    @Html.DisplayFor(modelItem => bestelling.Klant.Naam)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BestellingID">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.BestellingID">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.BestellingID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@bestelling.BestellingID">Edit</a>
+                    <a asp-action="Details" asp-route-id="@bestelling.BestellingID">Details</a>
+                    <a asp-action="Delete" asp-route-id="@bestelling.BestellingID">Delete</a>
                 </td>
             </tr>
         }
