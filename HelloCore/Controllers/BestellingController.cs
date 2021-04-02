@@ -99,21 +99,22 @@ namespace HelloCore.Controllers
             {
                 return NotFound();
             }
-            var bestelling = await _context.Bestellingen.FindAsync(id);
-            if (bestelling == null)
+            EditBestellingViewModel viewModel = new EditBestellingViewModel();
+            viewModel.Bestelling = await _context.Bestellingen.FindAsync(id);
+            if (viewModel.Bestelling == null)
             {
                 return NotFound();
             }
-            ViewBag.KlantenLijst = new SelectList(_context.Klanten, "KlantID", "Naam", bestelling.KlantID);
-            return View(bestelling);
+            viewModel.Klanten = new SelectList(_context.Klanten, "KlantID", "VolledigeNaam", viewModel.Bestelling.KlantID);
+            return View(viewModel);
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BestellingID, Artikel, Prijs, KlantID")] Bestelling bestelling)
+        public async Task<IActionResult> Edit(int id, EditBestellingViewModel viewModel)
         {
-            if (id != bestelling.BestellingID)
+            if (id != viewModel.Bestelling.BestellingID)
             {
                 return NotFound();
             }
@@ -121,12 +122,12 @@ namespace HelloCore.Controllers
             {
                 try
                 {
-                    _context.Update(bestelling);
+                    _context.Update(viewModel.Bestelling);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BestellingExists(bestelling.BestellingID))
+                    if (!BestellingExists(viewModel.Bestelling.BestellingID))
                     {
                         return NotFound();
                     }
@@ -137,8 +138,8 @@ namespace HelloCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.KlantenLijst = new SelectList(_context.Klanten, "KlantID", "Naam", bestelling.KlantID);
-            return View(bestelling);
+            viewModel.Klanten = new SelectList(_context.Klanten, "KlantID", "VolledigeNaam", viewModel.Bestelling.KlantID);
+            return View(viewModel);
         }
 
         //Verwijderen (bestelling)
