@@ -1,4 +1,7 @@
-﻿using HelloCore.Models;
+﻿using HelloCore.Areas.Identity.Data;
+using HelloCore.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HelloCore.Data
 {
-    public class HelloCoreContext : DbContext
+    public class HelloCoreContext : IdentityDbContext<CustomUser>
     {
         public HelloCoreContext (DbContextOptions<HelloCoreContext> options) : base(options)
         {
@@ -18,6 +21,8 @@ namespace HelloCore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Klant>().ToTable("Klant");
             modelBuilder.Entity<Klant>().Property(p => p.Naam).IsRequired();
             modelBuilder.Entity<Klant>().Ignore(p => p.VolledigeNaam);

@@ -52,7 +52,11 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.KlantID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.KlantID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.KlantID">Delete</a>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Delete" asp-route-id="@item.KlantID">Delete</a>
+                }
+                
             </td>
         </tr>
 }

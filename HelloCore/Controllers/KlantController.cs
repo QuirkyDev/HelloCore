@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using HelloCore.Data;
 using HelloCore.Models;
 using HelloCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelloCore.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class KlantController : Controller
     {
         private readonly HelloCoreContext _context;
@@ -21,6 +23,7 @@ namespace HelloCore.Controllers
         }
 
         // GET: Klant
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             ListKlantViewModel viewModel = new ListKlantViewModel();
