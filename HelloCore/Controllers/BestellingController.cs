@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using HelloCore.Data;
 using HelloCore.Models;
 using HelloCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloCore.Controllers
 {
+    [Authorize]
     public class BestellingController : Controller
     {
 
@@ -21,6 +23,7 @@ namespace HelloCore.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         //Index (bestelling)
         //Lijst
         public async Task<IActionResult> Index()
@@ -32,6 +35,7 @@ namespace HelloCore.Controllers
             return View(viewModel);
         }
 
+        [AllowAnonymous]
         //Search
         public async Task<IActionResult> Search(ListBestellingViewModel viewModel)
         {

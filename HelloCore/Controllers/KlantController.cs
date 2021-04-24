@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HelloCore.Data;
 using HelloCore.Models;
 using HelloCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HelloCore.Controllers
 {
